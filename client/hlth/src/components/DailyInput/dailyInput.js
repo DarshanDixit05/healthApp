@@ -1,6 +1,7 @@
 import { useState } from "react";
 import {useNavigate} from "react-router-dom"
 import Navbar from "../LandingPage1/navbar.js"
+import NutrientTable from "../Table/nutrientTable.js"
 import axios from 'axios';
 import {
   FormControl,
@@ -72,20 +73,25 @@ export default function DailyInput(){
     return(
         <>
         <Navbar />
-          <VStack py={10} spacing={4}>
+          <VStack py={10} spacing={2}>
             <Container maxW='md'>
               <FormControl isRequired>
                 <FormLabel>So User, What You Ate ?</FormLabel>
                 <Textarea placeholder='Eg : 2 large apples' name="input" onChange={handleChange} />
               </FormControl>
             </Container>
-            <Button colorScheme='teal' size='md' onClick={handleSubmit}>
-    Submit
-  </Button>
-  <Button colorScheme='teal' size='md' onClick={saveData}>
-    Save
-  </Button>
-          </VStack>
+            </VStack>
+
+            <Container maxW='md' mt={0}>
+              <Button m={2} colorScheme='teal' size='md' onClick={handleSubmit}>Submit</Button>
+              <Button m={2} colorScheme='teal' size='md' onClick={saveData}>
+                Save
+              </Button>
+            </Container>
+          
+            {/* <Container maxW='lg' mt={8}>
+            </Container> */}
+            <NutrientTable />
         </>
     );
 }
