@@ -100,7 +100,6 @@ export const updateProfile = async (req, res) =>{
     // await User.save({ userName:userName, email:email, password:password })
     res.send(user);
   } catch (e) {
-    console.log("sfjsjsjs");
     res.status(500).send();
   }
 };

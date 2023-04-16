@@ -45,7 +45,11 @@ const Login = () => {
     const handleSubmit = async (event) => {
       event.preventDefault();
       try {
-        console.log(formData._id)
+        console.log(formData.email);
+
+
+        //Sending email stored in localStorage to backend for storing calories for each user
+        localStorage.setItem('email', formData.email);
         const response = await axios.post(BASE+'/login', formData);
         console.log("successs!");
         navigate("/home");

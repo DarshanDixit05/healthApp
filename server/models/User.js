@@ -37,10 +37,10 @@ userSchema.methods.generateAccessToken = function () {
   jwt.verify(token, secretKey, (err, decoded) => {
     if (err) {
       console.error(err);
-      return res.status(401).json({ message: 'Unauthorized' });
+      // return res.status(401).json({ message: 'Unauthorized' });
     } else {
       console.log(decoded);
-      return res.status(200).json({ message: 'Token verified', decoded });
+      // return res.status(200).json({ message: 'Token verified', decoded });
     }
   });
   this.tokens.push({ token });
@@ -51,4 +51,4 @@ userSchema.methods.generateAccessToken = function () {
 // User model from schema
 const User = mongoose.model('User', userSchema);
 
-export default User ;
+export default User

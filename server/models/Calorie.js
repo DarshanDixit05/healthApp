@@ -1,12 +1,17 @@
 import mongoose from "mongoose";
+import  User  from '../models/User.js';
 
 const calCount = new mongoose.Schema({
     food: { type: String, required: true },
-    calories : {type: Number, required: true},
-    user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }
-});
-
+    calories : {type: Number, required: true}
+  });
+  
+  const userCalCountSchema = new mongoose.Schema({
+    userEmail: { type: mongoose.Schema.Types.String, ref: 'User', required: true },
+    entries: [calCount]
+  });
+  
 // Calorie Count model from schema
-const Calorie = mongoose.model('calCount', calCount);
+const UserCalCountModel = mongoose.model('UserCalCount', userCalCountSchema);
 
-export default Calorie;
+export default UserCalCountModel;

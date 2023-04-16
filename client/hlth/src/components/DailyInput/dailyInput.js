@@ -23,6 +23,8 @@ export default function DailyInput(){
   const [input, setInput] = useState("");
   const [foodItem, setItem] = useState("");
   const [calCount, setCalCount] = useState();
+  const [obj, setObj] = useState([]);
+  const [email, setEmail]=useState("");
 
   const options = {
     method: 'GET',
@@ -38,21 +40,27 @@ export default function DailyInput(){
     event.preventDefault();
     try{
         const res = await axios.request(options);
-        console.log(res.data);
+        setObj(res.data.totalDaily);
         setCalCount(res.data.calories);
         
     }catch(error) {
       console.error(error);
     }
-    // console.log(input);
   }
 
   const saveData = async(event)=>{
     event.preventDefault();
     try {
+
+      
+      //Geting the email from local Storage and setting it to the email valriable to pass it to to the backend as post req
+      setEmail(localStorage.getItem('email'));
+
+
       const obj = {
         foodItem,
-        calCount
+        calCount,
+        email
       }
       const response = await axios.post(BASE+'/sotreCalorie', obj);
       console.log(response.data);
@@ -82,16 +90,14 @@ export default function DailyInput(){
             </Container>
             </VStack>
 
-            <Container maxW='md' mt={0}>
+            <Container maxW='md' mt={0} mb={4}>
               <Button m={2} colorScheme='teal' size='md' onClick={handleSubmit}>Submit</Button>
               <Button m={2} colorScheme='teal' size='md' onClick={saveData}>
                 Save
               </Button>
             </Container>
           
-            {/* <Container maxW='lg' mt={8}>
-            </Container> */}
-            <NutrientTable />
+            <NutrientTable object={obj} calories={calCount} food={input} />
         </>
     );
 }
