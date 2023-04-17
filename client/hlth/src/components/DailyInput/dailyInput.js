@@ -88,7 +88,7 @@ export default function DailyInput(){
                 <Textarea placeholder='Eg : 2 large apples' name="input" onChange={handleChange} />
               </FormControl>
             </Container>
-            </VStack>
+          </VStack>
 
             <Container maxW='md' mt={0} mb={4}>
               <Button m={2} colorScheme='teal' size='md' onClick={handleSubmit}>Submit</Button>

@@ -47,3 +47,15 @@ export const storeCalorie = async(req,res) =>{
         // const userCalCount = await UserCalCountModel.findOne({ email: email }).populate('userEmail');
         // console.log(userCalCount.entries);
 }
+
+export const getCalorieCount = async(req, res) =>{
+      const em = req.query.email;
+      UserCalCountModel.findOne({ userEmail: em }, (err, data)=>{
+        if (err) {
+          console.log(err);
+          res.status(500).send('Error retrieving data from database');
+        } else {
+          res.json(data);
+        }
+      });
+}

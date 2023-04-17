@@ -6,6 +6,7 @@ import Signup from './components/Signup/signup';
 import Home from './components/LandingPage1/home';
 import UserProfileEdit from './components/UpdateProfile/updateProfile.js';
 import DailyInput from './components/DailyInput/dailyInput.js';
+import StatusPage from './components/LandingPage1/statusPage.js';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route exact path="/home" element={<Home/>}/>
         <Route exact path="/updateProfile" element={<UserProfileEdit/>}/>
         <Route exact path="/dailyInput" element={<DailyInput />} />
+        <Route exact path="/status" element={<StatusPage />} />
       </Routes>
       </BrowserRouter>
     </ChakraProvider>
