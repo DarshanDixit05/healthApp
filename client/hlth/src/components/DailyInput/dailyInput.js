@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {useNavigate} from "react-router-dom"
 import Navbar from "../LandingPage1/navbar.js"
 import NutrientTable from "../Table/nutrientTable.js"
@@ -26,6 +26,12 @@ export default function DailyInput(){
   const [obj, setObj] = useState([]);
   const [email, setEmail]=useState("");
 
+  useEffect(()=>{
+      //Geting the email from local Storage and setting it to the email valriable to pass it to to the backend as post req
+  setEmail(localStorage.getItem('email'));
+  }, [])
+
+
   const options = {
     method: 'GET',
     url: 'https://edamam-edamam-nutrition-analysis.p.rapidapi.com/api/nutrition-data',
@@ -51,12 +57,6 @@ export default function DailyInput(){
   const saveData = async(event)=>{
     event.preventDefault();
     try {
-
-      
-      //Geting the email from local Storage and setting it to the email valriable to pass it to to the backend as post req
-      setEmail(localStorage.getItem('email'));
-
-
       const obj = {
         foodItem,
         calCount,

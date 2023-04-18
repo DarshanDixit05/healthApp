@@ -20,18 +20,33 @@ import {
 
 const StatusPage = () => {
     const [em, setEmail] = useState("");
+    const [calArr, setCalArr] = useState([]);
+    const [total, setTotal] = useState(0);
 
     const options = {
         method: 'GET',
         url: BASE+'/getCalCount',
         params: {email: em},  // user req.query.email in backend to catch 
-    };
+    };  
+
+    let calCulateTotalCal = calArr.map(it=>{
+        let sum=0;
+        sum = sum + it.calories;
+        return sum;
+    })
+
+    
+    useEffect(()=>{
+        setEmail(localStorage.getItem('email'));
+    },[])
+    console.log(em);
 
     const handleSubmit = async(event)=>{
         event.preventDefault();
         try {
-            setEmail(localStorage.getItem('email'));
-            await axios.request(options).then(res=>{console.log(res)}).catch(err=>{console.log(err);});
+            await axios.request(options).then(res=>{console.log(res); setCalArr(res.data.entries)}).catch(err=>{console.log(err);});
+            // setTotal(calCulateTotalCal);
+            console.log(calCulateTotalCal);
         } catch (err) {
             console.log(err);
         }
@@ -43,11 +58,11 @@ const StatusPage = () => {
             <Navbar />
             <VStack py={10} spacing={2}>
                 <Container maxW='md'>
-                    <Progress />
+                    <Progress totalCalorie={total} />
                 </Container>
             </VStack>
             <Container maxW='md' mt={0} mb={4}>
-                <h3 style={{textAlign:"center"}}>You have completed 30% of your calorie goal !</h3>
+                <h3 style={{textAlign:"center"}}>You have completed {total} of your calorie goal !</h3>
                 <Button m={2} colorScheme='teal' size='md' onClick={handleSubmit}>Know Your Progress</Button>
             </Container>
         </>

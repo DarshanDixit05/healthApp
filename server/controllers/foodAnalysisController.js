@@ -50,6 +50,7 @@ export const storeCalorie = async(req,res) =>{
 
 export const getCalorieCount = async(req, res) =>{
       const em = req.query.email;
+      console.log(em);
       UserCalCountModel.findOne({ userEmail: em }, (err, data)=>{
         if (err) {
           console.log(err);
