@@ -47,6 +47,12 @@ const StatusPage = () => {
             await axios.request(options).then(res=>{console.log(res); setCalArr(res.data.entries)}).catch(err=>{console.log(err);});
             // setTotal(calCulateTotalCal);
             console.log(calCulateTotalCal);
+            let sum=0;
+            for(let i=0; i<calCulateTotalCal.length; i++)
+            {
+                sum+=calCulateTotalCal[i];
+            }
+            setTotal(sum);
         } catch (err) {
             console.log(err);
         }
