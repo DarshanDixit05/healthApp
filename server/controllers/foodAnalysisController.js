@@ -60,3 +60,17 @@ export const getCalorieCount = async(req, res) =>{
         }
       });
 }
+
+export const setCaloriesGoal = async(req,res) =>{
+  console.log(req.body.calorie);
+  try{
+    const calorieGoal = req.body.calorie;
+    const email = req.body.email;
+    const user = await User.findOne({email : email});
+    user.calorieGoal = calorieGoal;
+    await user.save();
+    res.send(user);
+  }catch (err){
+    res.status(500).send();
+  }
+}

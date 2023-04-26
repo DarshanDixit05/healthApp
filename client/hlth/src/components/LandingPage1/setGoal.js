@@ -13,27 +13,27 @@ import {
     VStack,
     Button,
     ButtonGroup,
-    Textarea,
-    Input
+    Textarea
   } from '@chakra-ui/react'
 
   const BASE = 'http://localhost:1999/api/v1';
 
-function setGoal() {
+function SetGoal() {
 
-    const [cal, setCal] = useState(0);
+    const [cal, setCal] = useState('');
 
     const handleChange = (event) => {
         const {name, value} = event.target;
+        console.log(value);
         setCal(value);
     };
 
     const handleSubmit = async(event) =>{
         event.preventDefault();
         try{
-
-            // Latest update : write backend function for setting the calorie goal for the user.  26-04-2023
-            const response =  await axios.post(BASE+'/setCaloriesGoal', cal);
+            const email = localStorage.getItem("email");
+            const response =  await axios.post(BASE+'/setCaloriesGoal', { calorie : cal, email : email});
+            console.log(response);
         }catch(err){
             console.log(err);
         }
@@ -43,7 +43,7 @@ function setGoal() {
         <Navbar />
         <VStack py={10} spacing={2}>
                 <Container maxW='md'>
-                    <Input type='number' placeholder='Your Calorie Goal' />
+                    <Input type='number' value={cal} onChange={handleChange} placeholder='Your Calorie Goal' />
                 </Container>
             </VStack>
             <Container maxW='md' mt={0} mb={4}>
@@ -54,4 +54,4 @@ function setGoal() {
   )
 }
 
-export default setGoal
+export default SetGoal

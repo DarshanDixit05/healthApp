@@ -7,6 +7,7 @@ import Home from './components/LandingPage1/home';
 import UserProfileEdit from './components/UpdateProfile/updateProfile.js';
 import DailyInput from './components/DailyInput/dailyInput.js';
 import StatusPage from './components/LandingPage1/statusPage.js';
+import SetGoal from "./components/LandingPage1/setGoal.js"
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Route exact path="/updateProfile" element={<UserProfileEdit/>}/>
         <Route exact path="/dailyInput" element={<DailyInput />} />
         <Route exact path="/status" element={<StatusPage />} />
+        <Route exact path="/setGoal" element={<SetGoal />} />
       </Routes>
       </BrowserRouter>
     </ChakraProvider>
