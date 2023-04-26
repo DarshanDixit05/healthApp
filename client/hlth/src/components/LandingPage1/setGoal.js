@@ -20,7 +20,7 @@ import {
 
 function SetGoal() {
 
-    const [cal, setCal] = useState('');
+    const [cal, setCal] = useState();
 
     const handleChange = (event) => {
         const {name, value} = event.target;

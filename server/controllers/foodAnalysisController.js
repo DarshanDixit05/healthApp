@@ -74,3 +74,16 @@ export const setCaloriesGoal = async(req,res) =>{
     res.status(500).send();
   }
 }
+
+export const getCaloriesGoal = async(req,res) => {
+  const email = req.query.email;
+  User.findOne({email:email}, (err, data) =>{
+    if(err)
+    {
+      console.log(err);
+      res.status(500).send('Error retrieving data from database');
+    }else{
+      res.json(data)
+    }
+  });
+}

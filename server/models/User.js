@@ -24,7 +24,7 @@ const userSchema = new mongoose.Schema({
       data: Buffer,
       contentType: String
   },
-  calorieGoal : String
+  calorieGoal : Number
 });
 
 
