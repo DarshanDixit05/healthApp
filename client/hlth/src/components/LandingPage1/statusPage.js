@@ -94,7 +94,7 @@ const StatusPage = () => {
                 </Container>
             </VStack>
             <Container maxW='md' mt={0} mb={4}>
-                <h3 style={{textAlign:"center"}}>You have completed {percentage} % of your calorie goal !</h3>
+                <h3 style={{textAlign:"center"}}>You have completed {percentage.toFixed(2)} % of your calorie goal !</h3>
                 <Button m={2} colorScheme='teal' size='md' onClick={(e) => handleSubmit(e)}>Know Your Progress</Button>
             </Container>
         </>
