@@ -42,26 +42,26 @@ import {
               px={3}
               color={'green.500'}
               rounded={'full'}>
-              Hobby
+              Know Your Calorie Status
             </Text>
-            <Stack direction={'row'} align={'center'} justify={'center'}>
+            {/* <Stack direction={'row'} align={'center'} justify={'center'}>
               <Text fontSize={'3xl'}>$</Text>
               <Text fontSize={'6xl'} fontWeight={800}>
                 79
               </Text>
               <Text color={'gray.500'}>/month</Text>
-            </Stack>
+            </Stack> */}
           </Stack>
   
           <Box bg={useColorModeValue('gray.50', 'gray.900')} px={6} py={10}>
             <List spacing={3}>
               <ListItem>
                 <ListIcon as={CheckIcon} color="green.400" />
-                5.000 page views
+                Track your daily progress
               </ListItem>
-              <ListItem>
+              {/* <ListItem>
                 <ListIcon as={CheckIcon} color="green.400" />
-                50 automation executions
+                
               </ListItem>
               <ListItem>
                 <ListIcon as={CheckIcon} color="green.400" />
@@ -70,7 +70,7 @@ import {
               <ListItem>
                 <ListIcon as={CheckIcon} color="green.400" />
                 All features
-              </ListItem>
+              </ListItem> */}
             </List>
   
             <Button
@@ -86,7 +86,7 @@ import {
               _focus={{
                 bg: 'green.500',
               }}>
-              Start your trial
+              Calorie Status
             </Button>
           </Box>
         </Box>
@@ -110,35 +110,35 @@ import {
               px={3}
               color={'green.500'}
               rounded={'full'}>
-              Hobby
+              Tell Us What You Ate Today
             </Text>
-            <Stack direction={'row'} align={'center'} justify={'center'}>
+            {/* <Stack direction={'row'} align={'center'} justify={'center'}>
               <Text fontSize={'3xl'}>$</Text>
               <Text fontSize={'6xl'} fontWeight={800}>
                 79
               </Text>
               <Text color={'gray.500'}>/month</Text>
-            </Stack>
+            </Stack> */}
           </Stack>
   
           <Box bg={useColorModeValue('gray.50', 'gray.900')} px={6} py={10}>
             <List spacing={3}>
               <ListItem>
                 <ListIcon as={CheckIcon} color="green.400" />
-                5.000 page views
+                Nutrition details of the food you ate
               </ListItem>
               <ListItem>
                 <ListIcon as={CheckIcon} color="green.400" />
-                50 automation executions
+                Add the food for your calorie goal
               </ListItem>
               <ListItem>
                 <ListIcon as={CheckIcon} color="green.400" />
-                50 identified users
+                Quantity wise food nutrition details
               </ListItem>
-              <ListItem>
+              {/* <ListItem>
                 <ListIcon as={CheckIcon} color="green.400" />
                 All features
-              </ListItem>
+              </ListItem> */}
             </List>
   
             <Button
@@ -154,7 +154,7 @@ import {
               _focus={{
                 bg: 'green.500',
               }}>
-              Start your trial
+              Let's Go
             </Button>
           </Box>
         </Box>
