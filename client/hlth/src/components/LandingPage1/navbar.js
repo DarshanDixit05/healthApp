@@ -1,4 +1,5 @@
 import { ReactNode } from 'react';
+import { useState, useEffect } from "react";
 import {useNavigate} from "react-router-dom"
 import {
   Box,
@@ -37,6 +38,29 @@ const NavLink = ({ children }: { children: ReactNode }) => (
 );
 
 export default function Nav() {
+  const [em, setEmail] = useState("");
+  const [userName, setUserName] = useState("");
+
+  const getUserName = {
+    method: 'GET',
+    url: BASE+'/getCaloriesGoal',
+    params: {email: em},  // user req.query.email in backend to catch 
+  };  
+
+  const handleSubmit = async()=>{
+    try {
+        await axios.request(getUserName).then(res=>{ 
+          setUserName(res.data.userName);
+        })
+    } catch (err) {
+        console.log(err);
+    }
+}
+
+  useEffect(()=>{
+    setEmail(localStorage.getItem('email'));
+},[])
+
   const { colorMode, toggleColorMode } = useColorMode();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const navigate = useNavigate();
@@ -70,6 +94,7 @@ export default function Nav() {
                   rounded={'full'}
                   variant={'link'}
                   cursor={'pointer'}
+                  onClick={handleSubmit}
                   minW={0}>
                   <Avatar
                     size={'sm'}
@@ -86,12 +111,11 @@ export default function Nav() {
                   </Center>
                   <br />
                   <Center>
-                    <p>Username</p>
+                    <p>{userName}</p>
                   </Center>
                   <br />
                   <MenuDivider />
-                  <MenuItem>Your Servers</MenuItem>
-                  <MenuItem>Account Settings</MenuItem>
+                  <MenuItem>Update Profile</MenuItem>
                   <MenuItem onClick={handleClick}>Logout</MenuItem>
                 </MenuList>
               </Menu>
