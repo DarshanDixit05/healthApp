@@ -17,6 +17,13 @@ import {
   import { HStack, VStack } from '@chakra-ui/react'
   
   export default function Home() {
+    const navigate = useNavigate();
+    const goToCalorieStatus = () =>{
+      navigate('/status');
+    }
+    const goToDailyInput = () =>{
+      navigate('/dailyInput');
+    }
     return (
         <>
         <Navbar />
@@ -80,6 +87,7 @@ import {
               color={'white'}
               rounded={'xl'}
               boxShadow={'0 5px 20px 0px rgb(72 187 120 / 43%)'}
+              onClick={goToCalorieStatus}
               _hover={{
                 bg: 'green.500',
               }}
@@ -151,6 +159,7 @@ import {
               _hover={{
                 bg: 'green.500',
               }}
+              onClick={goToDailyInput}
               _focus={{
                 bg: 'green.500',
               }}>
