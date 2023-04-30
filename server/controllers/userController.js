@@ -79,7 +79,7 @@ export const updateProfile = async (req, res) =>{
   const updates = Object.keys(req.body);
   // console.log(updates);
   console.log(req.body.userName);
-  const allowedUpdates = ['userName', 'email', 'password'];
+  const allowedUpdates = ['userName', 'email', 'password', 'dupPassword'];
   
   const isValidOperation = updates.every((update) => allowedUpdates.includes(update));
 
@@ -87,13 +87,18 @@ export const updateProfile = async (req, res) =>{
     return res.status(400).send({ error: 'Invalid updates!' });
   }
   try {
-    const {userName, email, password } = req.body;
+    const {userName, email, password, dupPassword} = req.body;
     const user = await User.findOne({ email });
 
     // Update user fields with request data
     user.userName = req.body.userName || user.userName;
     user.email = req.body.email || user.email;
     user.password = req.body.password || user.password;
+    
+    if(user.password != req.body.dupPassword){
+      alert("Re entered password and password don't match.");
+      return res.send(400).send({error : 'Invalid credentials!'})
+    }
 
     await user.save();
     

@@ -76,6 +76,9 @@ export default function Nav() {
         alert("Failed to logut!")
       }
   }
+  const handleUpdateProfile = () =>{
+    navigate("/updateProfile")
+  }
   return (
     <>
       <Box bg={useColorModeValue('gray.100', 'gray.900')} px={4}>
@@ -115,7 +118,7 @@ export default function Nav() {
                   </Center>
                   <br />
                   <MenuDivider />
-                  <MenuItem>Update Profile</MenuItem>
+                  <MenuItem onClick={handleUpdateProfile}>Update Profile</MenuItem>
                   <MenuItem onClick={handleClick}>Logout</MenuItem>
                 </MenuList>
               </Menu>

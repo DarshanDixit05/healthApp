@@ -26,6 +26,7 @@ import {
         userName: '',
         email: '',
         password: '',
+        dupPassword:''
     });
 
     const handleChange = (e) => {
@@ -54,14 +55,15 @@ import {
         bg={useColorModeValue('gray.50', 'gray.800')}>
         <form onSubmit={handleSubmit}>
         <Stack
-          spacing={4}
+          spacing={5}
           w={'full'}
           maxW={'md'}
           bg={useColorModeValue('white', 'gray.700')}
           rounded={'xl'}
           boxShadow={'lg'}
-          p={6}
-          my={12}>
+          p={7}
+          // my={12}
+          >
           <Heading lineHeight={1.1} fontSize={{ base: '2xl', sm: '3xl' }}>
             User Profile Edit
           </Heading>
@@ -111,6 +113,15 @@ import {
               _placeholder={{ color: 'gray.500' }}
               type="password"
               name="password" value={formData.password} onChange={handleChange}
+            />
+          </FormControl>
+          <FormControl id="dupPassword" isRequired>
+            <FormLabel>Re-enter Password</FormLabel>
+            <Input
+              placeholder="password"
+              _placeholder={{ color: 'gray.500' }}
+              type="password"
+              name="dupPassword" value={formData.dupPassword} onChange={handleChange}
             />
           </FormControl>
           <Stack spacing={6} direction={['column', 'row']}>
