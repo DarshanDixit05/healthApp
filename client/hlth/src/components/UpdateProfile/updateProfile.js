@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 // import {useNavigate} from "react-router-dom"
 import Navbar from "../LandingPage1/navbar"
 import axios from 'axios';
@@ -22,6 +22,11 @@ import {
   const BASE = 'http://localhost:1999/api/v1';  //Base url 
   
   export default function UserProfileEdit(): JSX.Element {
+    const [email,setEmail] = useState('');
+
+    useEffect(()=>{
+      setEmail(localStorage.getItem('email'));
+    }, [])
     const [formData, setFormData] = useState({
         userName: '',
         email: '',
@@ -29,21 +34,42 @@ import {
         dupPassword:''
     });
 
+    const [postImage, setPostImage] = useState( { myFile : ""})
+
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
+    const createPost = async (newImage) => {
+      try{
+        await axios.post(BASE+'/updateProfileImage', {newImage, email})
+
+        //getImage is not working properly
+        localStorage.setItem('profileImage', postImage.myFile);
+      }catch(error){
+        console.log(error)
+      }
+    }
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            console.log(formData);
+          console.log(formData);
           await axios.patch(BASE+'/updateProfile', formData);
+          createPost(postImage)
+          console.log("Uploaded")
           alert('Profile updated successfully!');
         } catch (err) {
           console.error(err);
           alert('Error updating profile!');
         }
       };
+
+      const handleFileUpload = async (e) => {
+        const file = e.target.files[0];
+        const base64 = await convertToBase64(file);
+        setPostImage({ ...postImage, myFile : base64 })
+      }
 
     return (
         <>
@@ -71,7 +97,7 @@ import {
             <FormLabel>User Icon</FormLabel>
             <Stack direction={['column', 'row']} spacing={6}>
               <Center>
-                <Avatar size="xl" src="https://bit.ly/sage-adebayo">
+                <Avatar size="xl" src={postImage.myFile || "https://bit.ly/sage-adebayo"}>
                   <AvatarBadge
                     as={IconButton}
                     size="sm"
@@ -84,7 +110,14 @@ import {
                 </Avatar>
               </Center>
               <Center w="full">
-                <Button w="full">Change Icon</Button>
+              <input 
+          type="file"
+          lable="Image"
+          name="myFile"
+          id='file-upload'
+          accept='.jpeg, .png, .jpg'
+          onChange={(e) => handleFileUpload(e)}
+         />
               </Center>
             </Stack>
           </FormControl>
@@ -150,4 +183,18 @@ import {
       </Flex>
         </>
     );
+  }
+
+
+  function convertToBase64(file){
+    return new Promise((resolve, reject) => {
+      const fileReader = new FileReader();
+      fileReader.readAsDataURL(file);
+      fileReader.onload = () => {
+        resolve(fileReader.result)
+      };
+      fileReader.onerror = (error) => {
+        reject(error)
+      }
+    })
   }

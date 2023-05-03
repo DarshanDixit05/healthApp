@@ -17,14 +17,7 @@ const userSchema = new mongoose.Schema({
   userName: { type: String, required: true },
   email: { type: String, required: true },
   password: { type: String, required: true },
-  imgName: String,
-  imgDesc: String,
-  img:
-  {
-      data: Buffer,
-      contentType: String
-  },
-  calorieGoal : Number
+  image:{type: String}
 });
 
 

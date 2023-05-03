@@ -3,16 +3,7 @@ import bcrypt from 'bcryptjs';
 import jwt from "jsonwebtoken";
 import express from 'express'
 import multer from 'multer';
-
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, './uploads/profile-pictures');
-  },
-  filename: function (req, file, cb) {
-    cb(null, Date.now() + '-' + file.originalname);
-  }
-});
-const upload = multer({ storage: storage });
+import ProfileImage from "../models/profileImage.js"
 
 const router = express.Router();
 
@@ -73,6 +64,41 @@ export const logout = async (req, res) => {
     res.status(500).json({ message: 'Internal server error' });
   }
 };
+
+export const updateProfileImage = async(req,res) =>{
+  const email = req.body.email;
+  try {
+    let profileImage = await ProfileImage.findOne({email});
+    if(!profileImage)
+    {
+      profileImage = new ProfileImage({
+        userEmail: email,
+        image:""
+      });
+    }
+    console.log();
+    profileImage.image = req.body.newImage.myFile;
+
+    profileImage.save();
+    res.status(200).json({message : 'Stored Successfully'});
+    console.log("image stored!");
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export const getProfileImage = async(req, res) =>{
+  const email = req.params.email;
+  try {
+    let profileImage = await ProfileImage.findOne({email}).then(data=>{
+      res.json(data);
+    }).catch(error => {
+      res.status(408).json({ error })
+  });
+  } catch (error) {
+      console.log(error);
+  }
+}
 
 export const updateProfile = async (req, res) =>{
   // Extract the fields to be updated from the request 

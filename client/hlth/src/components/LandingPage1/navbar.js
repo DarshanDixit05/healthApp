@@ -40,12 +40,25 @@ const NavLink = ({ children }: { children: ReactNode }) => (
 export default function Nav() {
   const [em, setEmail] = useState("");
   const [userName, setUserName] = useState("");
+  const [imagePath, setImagePath]=useState("");
 
   const getUserName = {
     method: 'GET',
     url: BASE+'/getCaloriesGoal',
     params: {email: em},  // user req.query.email in backend to catch 
   };  
+
+  const getProfileImage = {
+    method: 'GET',
+    url: BASE+'/getProfileImage',
+    params: {email: em},  // user req.query.email in backend to catch 
+  }
+
+  useEffect(()=>{
+      setEmail(localStorage.getItem('email'));
+      setImagePath(localStorage.getItem('profileImage'));
+      console.log(localStorage.getItem('profileImage'));
+  }, [])
 
   const handleSubmit = async()=>{
     try {
@@ -56,10 +69,6 @@ export default function Nav() {
         console.log(err);
     }
 }
-
-  useEffect(()=>{
-    setEmail(localStorage.getItem('email'));
-},[])
 
   const { colorMode, toggleColorMode } = useColorMode();
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -101,7 +110,7 @@ export default function Nav() {
                   minW={0}>
                   <Avatar
                     size={'sm'}
-                    src={'https://avatars.dicebear.com/api/male/username.svg'}
+                    src={imagePath || 'https://avatars.dicebear.com/api/male/username.svg'}
                   />
                 </MenuButton>
                 <MenuList alignItems={'center'}>
@@ -109,7 +118,7 @@ export default function Nav() {
                   <Center>
                     <Avatar
                       size={'2xl'}
-                      src={'https://avatars.dicebear.com/api/male/username.svg'}
+                      src={imagePath || 'https://avatars.dicebear.com/api/male/username.svg'}
                     />
                   </Center>
                   <br />
