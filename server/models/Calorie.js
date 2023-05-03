@@ -8,7 +8,8 @@ const calCount = new mongoose.Schema({
   
   const userCalCountSchema = new mongoose.Schema({
     userEmail: { type: mongoose.Schema.Types.String, ref: 'User', required: true },
-    entries: [calCount]
+    entries: [calCount],
+    endDate:{type: String, required:true}
   });
   
 // Calorie Count model from schema

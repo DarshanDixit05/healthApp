@@ -79,7 +79,7 @@ export const updateProfileImage = async(req,res) =>{
     console.log();
     profileImage.image = req.body.newImage.myFile;
 
-    profileImage.save();
+    await profileImage.save();
     res.status(200).json({message : 'Stored Successfully'});
     console.log("image stored!");
   } catch (error) {
