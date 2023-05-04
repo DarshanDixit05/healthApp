@@ -32,6 +32,8 @@ export default function DailyInput(){
   }, [])
 
 
+
+
   const options = {
     method: 'GET',
     url: 'https://edamam-edamam-nutrition-analysis.p.rapidapi.com/api/nutrition-data',
@@ -45,31 +47,46 @@ export default function DailyInput(){
   const handleSubmit = async(event)=>{
     event.preventDefault();
     try{
-        const res = await axios.request(options);
-        setObj(res.data.totalDaily);
-        setCalCount(res.data.calories);
+        // const res = await axios.request(options);
+        // setObj(res.data.totalDaily);
+        // setCalCount(res.data.calories);
         
     }catch(error) {
       console.error(error);
     }
+
+    try {
+      const em = localStorage.getItem("email");
+        const calorieResponse = await axios.get(BASE + '/getCalorie', {
+        params: {
+          email: em
+        }
+      });
+      console.log(calorieResponse.data);
+    } catch (error) {
+      console.log(error);
+    }
   }
 
-  const saveData = async(event)=>{
+  const saveData = async (event) => {
     event.preventDefault();
+  
     try {
       const obj = {
         foodItem,
         calCount,
         email
-      }
-      const response = await axios.post(BASE+'/sotreCalorie', obj);
+      };
+      const response = await axios.post(BASE + '/storeCalorie', obj);
       console.log(response.data);
+      // Do something with the response data
     } catch (err) {
       // Handle error response
       console.error(err);
       // Show error message to user or take appropriate action
     }
-  }
+  };
+  
 
 
   const handleChange = (event) =>{

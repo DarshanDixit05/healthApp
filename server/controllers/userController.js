@@ -4,6 +4,8 @@ import jwt from "jsonwebtoken";
 import express from 'express'
 import multer from 'multer';
 import ProfileImage from "../models/profileImage.js"
+import  UserCalCountModel  from '../models/Calorie.js';
+import nodemailer from "nodemailer";
 
 const router = express.Router();
 
@@ -134,3 +136,58 @@ export const updateProfile = async (req, res) =>{
     res.status(500).send();
   }
 };
+
+export const mailApi = async(req, res) =>{
+  console.log(req);
+  const email = req.query.email;
+  console.log("Hello Set mail");
+  try {
+    const user = await User.findOne({email: email});
+    const calorieGoal = user.calorieGoal;
+    const calorieModel = await UserCalCountModel.findOne({email: email});
+    let totalCalorie=0;
+    for(let i=0; i<calorieModel.entries.length; i++)
+    {
+      totalCalorie+=(calorieModel.entries[i].calories);
+    }
+
+    console.log(user.calorieGoal);
+    if(totalCalorie>=calorieGoal)
+    {
+      const subject = 'Congratulations on reaching your calorie goal!';
+      const body = `You have reached your daily calorie goal of ${calorieGoal} calories.`;
+      sendEmail(email, subject, body);
+      console.log(`Email sent to ${email}`);
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+function sendEmail(recipient, subject, body) {
+  let transporter = nodemailer.createTransport({
+    host: 'smtp.ethereal.email',
+    port: 587,
+    auth: {
+      user: 'bernardo.reilly@ethereal.email',
+      pass: 'VMvkU7qzUxEEnP5tuX'
+    }
+  });
+
+  let mailOptions = {
+    from: 'bernardo.reilly@ethereal.email', 
+    to: recipient, 
+    subject: subject, 
+    text: body, 
+    html: `<p>${body}</p>` 
+  };
+
+  
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      console.log(error);
+    } else {
+      console.log('Email sent: ' + info.response);
+    }
+  });
+}
