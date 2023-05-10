@@ -7,7 +7,7 @@ import  User  from '../models/User.js';
 async function createCalorieEntry(em, food, calories) {
     // Find the user associated with the given `email (em)`
     const user = await User.findOne({ email: em });
-  
+    console.log(calories+"ajshdfjh");
     // Find the user calorie count document associated with the user's `email (em)`
     let userCalCount = await UserCalCountModel.findOne({ userEmail: em });
   
@@ -15,7 +15,8 @@ async function createCalorieEntry(em, food, calories) {
     if (!userCalCount) {
       userCalCount = new UserCalCountModel({
         userEmail: em,
-        entries: []
+        entries: [],
+        endDate:""
       });
     }
   
