@@ -10,8 +10,10 @@ import {
   } from '@chakra-ui/react'
   import React from "react"
   import { useState, useEffect } from "react";
+  import {useNavigate} from "react-router-dom"
 
   function CompExample(props) {
+    const navigate=useNavigate();
     const {
       isOpen: isVisible,
       onClose,
@@ -26,13 +28,13 @@ import {
       <Alert status='success'>
         <AlertIcon />
         <Box>
-          <AlertTitle>Success!</AlertTitle>
           <AlertDescription>
-            Your application has been received. We will review your application
-            and respond within the next 48 hours.
+            Yayy! You've reached your GOAL!
           </AlertDescription>
         </Box>
-        
+        <Button m={2} colorScheme='teal' size='md' onClick={()=>{
+            navigate("/setGoal")
+        }}>New Goal</Button>
       </Alert>
     ) : null
   }
