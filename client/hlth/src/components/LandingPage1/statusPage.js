@@ -23,6 +23,8 @@ const StatusPage = () => {
     const [calArr, setCalArr] = useState([]);
     const [total, setTotal] = useState(0);
     const [percentage, setPercentage] = useState(0);
+    const [goal, setCalGoal]=useState(0);
+    const [reached, setReached]=useState(false);
 
     const getCalCount = {
         method: 'GET',
@@ -56,6 +58,7 @@ const StatusPage = () => {
                 await axios.request(getCalGoal).then(res=>{
                 console.log(res);
                 const totalCalorieGoal = res.data.calorieGoal;
+                setCalGoal(totalCalorieGoal);
                 console.log(sum);
                 // console.log(total/totalCalorieGoal);
                 setPercentage((sum/totalCalorieGoal)*100);
@@ -69,13 +72,17 @@ const StatusPage = () => {
     const handleSubmit = async(event)=>{
         event.preventDefault();
         try {
-
+            
             // send the value of total calorie consumed directly to the function as setting state takes time.
             await axios.request(getCalCount).then(res=>{console.log(res);  
                 let sum=0;
                 for(let i=0; i<res.data.entries.length; i++)
                 {
                     sum+=res.data.entries[i].calories;
+                }
+                if(sum>=goal)
+                {
+                    setReached(true);
                 }
                 setTotal(sum);
                 getPercentage(sum)   }).catch(err=>{console.log(err);});
@@ -90,7 +97,7 @@ const StatusPage = () => {
             <Navbar />
             <VStack py={10} spacing={2}>
                 <Container maxW='md'>
-                    <Progress totalCalorie={percentage} />
+                    <Progress totalCalorie={percentage} userGoal = {goal} flag={reached}/>
                 </Container>
             </VStack>
             <Container maxW='md' mt={0} mb={4}>
