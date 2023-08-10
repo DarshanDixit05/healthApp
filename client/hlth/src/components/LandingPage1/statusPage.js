@@ -50,29 +50,15 @@ const StatusPage = () => {
 
     
     useEffect(()=>{
-        const endDate = new Date(date);
-        const currentDate = new Date();
-        const timeDifference = endDate.getTime() - currentDate.getTime();
-        const daysRemaining = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
-        console.log(daysRemaining);
-            setRemDays(daysRemaining);
-        
         setEmail(localStorage.getItem('email'));
     },[])
-    // console.log(em);
 
     const getPercentage = async(sum) => {
-       
-        // console.log("hello");
         try {
                 await axios.request(getCalGoal).then(res=>{
-                console.log(res);
                 const totalCalorieGoal = res.data.calorieGoal;
                 setCalGoal(totalCalorieGoal);
-                console.log(sum);
-                // console.log(total/totalCalorieGoal);
                 setPercentage((sum/totalCalorieGoal)*100);
-                console.log(percentage);
             })
         } catch (error) {
              console.log(error);
@@ -111,7 +97,9 @@ const StatusPage = () => {
             <Container maxW='md'>
             {isNaNCheck ? (
                 <h3 style={{ textAlign: "center" }}>
-                You have got {daysRem} days to reach your goal
+                You have got {
+                    Math.floor((new Date(date).getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24))
+                } days to reach your goal
                 </h3>
             ) : null}
             </Container>
