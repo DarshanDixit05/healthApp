@@ -3,6 +3,7 @@ import bcrypt from 'bcryptjs';
 import jwt from "jsonwebtoken";
 import express from 'express'
 import  User  from '../models/User.js';
+import nodemailer from 'nodemailer';
 
 async function createCalorieEntry(em, food, calories) {
     // Find the user associated with the given `email (em)`
@@ -79,6 +80,45 @@ export const setCaloriesGoal = async(req,res) =>{
     res.send(user);
   }catch (err){
     res.status(500).send();
+  }
+}
+
+export const sendMail = async(req, res) => {
+  try {
+    // const { recipient  = req.query;
+    console.log(req.query.email);
+    const transporter = nodemailer.createTransport({
+      host: 'smtp.ethereal.email',
+      port: 587,
+      auth: {
+          user: 'maria.hand@ethereal.email',
+          pass: 'Yr6RTfX3jWepeVUD4V'
+      }
+  });
+
+// Button click handler to send an email
+function sendEmailOnClick() {
+  // Email content
+  const mailOptions = {
+    from: 'darshandixit0@gmail.com',
+    to: req.query.email, // Replace with the recipient's email
+    subject: 'Calorie achievement',
+    text: `Hey ${req.query.email}, you have achieved your calorie goal`
+  };
+
+  // Send the email
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      console.error('Error sending email:', error);
+    } else {
+      console.log('Email sent:', info.response);
+    }
+  });
+
+}
+sendEmailOnClick();
+  } catch (error) {
+    console.log(error);
   }
 }
 

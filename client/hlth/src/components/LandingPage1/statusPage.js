@@ -40,7 +40,7 @@ const StatusPage = () => {
         method: 'GET',
         url: BASE+'/getCaloriesGoal',
         params: {email: em},  // user req.query.email in backend to catch 
-    };  
+    }; 
 
     let calCulateTotalCal = calArr.map(it=>{
         let sum=0;
@@ -55,12 +55,7 @@ const StatusPage = () => {
         const timeDifference = endDate.getTime() - currentDate.getTime();
         const daysRemaining = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
         console.log(daysRemaining);
-        if(isNaN(daysRemaining))
-        {
-            setIsNaNCheck(0);
-        }else{
             setRemDays(daysRemaining);
-        }
         
         setEmail(localStorage.getItem('email'));
     },[])
@@ -119,7 +114,6 @@ const StatusPage = () => {
                 You have got {daysRem} days to reach your goal
                 </h3>
             ) : null}
-                {/* <h3 style={{textAlign:"center"}}>You have got {daysRem} of days to reach your goal</h3> */}
             </Container>
             <VStack py={10} spacing={2}>
                 <Container maxW='md'>
