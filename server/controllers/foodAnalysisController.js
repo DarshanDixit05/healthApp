@@ -73,6 +73,7 @@ export const setCaloriesGoal = async(req,res) =>{
     const useCalCount = await UserCalCountModel.findOne({email : email});
     user.calorieGoal = calorieGoal;
     useCalCount.endDate = endDate;
+    useCalCount.entries = [];
     await useCalCount.save();
     await user.save();
     res.send(user);

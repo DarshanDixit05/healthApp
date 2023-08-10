@@ -7,10 +7,11 @@ const BASE = 'http://localhost:1999/api/v1';
 
 function ProgressComponent(props) {
     const [reached, setReached] = useState(false);
+    
   return (
     <div>
       <Progress colorScheme='green' size='md' value={props.totalCalorie} />
-      <CompExample f={props.flag}/>
+      <CompExample f={(props.totalCalorie>=100)}/>
     </div>
   );
 }
